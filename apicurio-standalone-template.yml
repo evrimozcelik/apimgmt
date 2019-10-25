@@ -4,9 +4,9 @@ metadata:
   name: apicurio-studio-standalone
 message: |-
   Congratulations on deploying Apicurio Studio into OpenShift!
-
+  
   The following secret(s) have been created in your project:
-
+  
          SQL Username: ${GENERATED_DB_USER}
          SQL Password: ${GENERATED_DB_PASS}
          SQL Connection URL: postgresql://postgresql:5432/
@@ -19,7 +19,7 @@ message: |-
   In addition, you may want to configure Keycloak to your particular taste (for
   example you may want to enable social logins).  To configure Keycloak you
   can go here (and log in with the Keycloak username/password listed above):
-
+  
          Keycloak URL: https://${AUTH_ROUTE}/auth
 
 objects:
@@ -28,15 +28,13 @@ objects:
   kind: ImageStream
   metadata:
     name: auth
-    annotations:
-      openshift.io/image.insecureRepository: "true"
   spec:
     tags:
       - name: latest-release
         from:
           kind: DockerImage
           name: apicurio/apicurio-studio-auth:latest-release
-        #importPolicy:
+        importPolicy:
           #scheduled: true #change
 - apiVersion: v1
   kind: ImageStream
@@ -48,7 +46,7 @@ objects:
         from:
           kind: DockerImage
           name: apicurio/apicurio-studio-api:latest-release
-        #importPolicy:
+        importPolicy:
           #scheduled: true #change
 - apiVersion: v1
   kind: ImageStream
@@ -60,7 +58,7 @@ objects:
         from:
           kind: DockerImage
           name: apicurio/apicurio-studio-ws:latest-release
-        #importPolicy:
+        importPolicy:
           #scheduled: true #change
 - apiVersion: v1
   kind: ImageStream
@@ -72,7 +70,7 @@ objects:
         from:
           kind: DockerImage
           name: apicurio/apicurio-studio-ui:latest-release
-        #importPolicy:
+        importPolicy:
           #scheduled: true #change
 # Persistent volumes: Keycloak and Postgresql
 - apiVersion: v1
@@ -846,27 +844,27 @@ parameters:
 - name: UI_JVM_MIN
   displayName: UI Min JVM Memory Limit
   description: UI Min JVM Memory Limit
-  value: 256m #512m
+  value: 512m
   required: false
 - name: UI_JVM_MAX
   displayName: UI Max JVM Memory Limit
   description: UI Max JVM Memory Limit
-  value: 1200m #changed 1200m
+  value: 1200m
   required: false
 - name: UI_MEM_LIMIT
   displayName: UI Max Memory Limit
   description: UI Pods Max Memory Limit
-  value: 1500Mi #1500Mi
+  value: 1500Mi
   required: true
 - name: UI_MEM_REQUEST
   displayName: UI Memory Request
   description: UI Pods Memory Request
-  value: 500Mi #500Mi
+  value: 700Mi
   required: true
 - name: UI_CPU_LIMIT
   displayName: UI Max CPU Limit
   description: UI Pods Max CPU Limit
-  value: '1' #updated '1'
+  value: '1'
   required: true
 - name: UI_CPU_REQUEST
   displayName: UI CPU Request
@@ -876,27 +874,27 @@ parameters:
 - name: API_JVM_MIN
   displayName: API Min JVM Memory Limit
   description: API Min JVM Memory Limit
-  value: 512m #512m
+  value: 512m
   required: false
 - name: API_JVM_MAX
   displayName: API Max JVM Memory Limit
   description: API Max JVM Memory Limit
-  value: 1400m #changed 1400m
+  value: 1400m
   required: false
 - name: API_MEM_LIMIT
   displayName: API Max Memory Limit
   description: API Pods Max Memory Limit
-  value: 1700Mi #changed 1700Mi
+  value: 1700Mi
   required: true
 - name: API_MEM_REQUEST
   displayName: API Memory Request
   description: API Pods Memory Request
-  value: 800Mi #800Mi
+  value: 800Mi
   required: true
 - name: API_CPU_LIMIT
   displayName: API Max CPU Limit
   description: API Pods Max CPU Limit
-  value: '1' #updated '1'
+  value: '1'
   required: true
 - name: API_CPU_REQUEST
   displayName: API CPU Request
@@ -906,27 +904,27 @@ parameters:
 - name: WS_JVM_MIN
   displayName: WS Min JVM Memory Limit
   description: WS Min JVM Memory Limit
-  value: 512m #512m
+  value: 512m
   required: false
 - name: WS_JVM_MAX
   displayName: WS Max JVM Memory Limit
   description: WS Max JVM Memory Limit
-  value: 1400m #changed 1400m
+  value: 1400m
   required: false
 - name: WS_MEM_LIMIT
   displayName: WS Max Memory Limit
   description: WS Pods Max Memory Limit
-  value: 1800Mi #changed 1800Mi
+  value: 1800Mi
   required: true
 - name: WS_MEM_REQUEST
   displayName: WS Memory Request
   description: WS Pods Memory Request
-  value: 900Mi #900Mi
+  value: 900Mi
   required: true
 - name: WS_CPU_LIMIT
   displayName: WS Max CPU Limit
   description: WS Pods Max CPU Limit
-  value: '1' #updated '1'
+  value: '1'
   required: true
 - name: WS_CPU_REQUEST
   displayName: WS CPU Request
@@ -936,17 +934,17 @@ parameters:
 - name: AUTH_MEM_LIMIT
   displayName: AUTH Max Memory Limit
   description: AUTH Pods Max Memory Limit
-  value: 1300Mi #changed 1300Mi
+  value: 1300Mi
   required: true
 - name: AUTH_MEM_REQUEST
   displayName: AUTH Memory Request
   description: AUTH Pods Memory Request
-  value: 600Mi #600Mi
+  value: 600Mi
   required: true
 - name: AUTH_CPU_LIMIT
   displayName: AUTH Max CPU Limit
   description: AUTH Pods Max CPU Limit
-  value: '1' #updated '1'
+  value: '1'
   required: true
 - name: AUTH_CPU_REQUEST
   displayName: AUTH CPU Request
