@@ -476,6 +476,12 @@ objects:
                value: ${API_JVM_MIN}
              - name: APICURIO_MAX_HEAP
                value: ${API_JVM_MAX}
+             - name: APICURIO_MICROCKS_API_URL
+               value: https://microcks.192.168.99.100.nip.io/api
+             - name: APICURIO_MICROCKS_CLIENT_ID
+               value: microcks-serviceaccount
+             - name: APICURIO_MICROCKS_CLIENT_SECRET
+               value: 'fc3e01e4-26cb-4bbe-9b8f-154cc6e975f3'
           resources:
             limits:
               cpu: ${API_CPU_LIMIT}
@@ -670,6 +676,8 @@ objects:
                value: ${UI_JVM_MIN}
              - name: APICURIO_MAX_HEAP
                value: ${UI_JVM_MAX}
+             - name: APICURIO_UI_FEATURE_MICROCKS
+               value: 'true'
           resources:
             limits:
               cpu: ${UI_CPU_LIMIT}
