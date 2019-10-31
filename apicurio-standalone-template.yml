@@ -510,6 +510,22 @@ objects:
             successThreshold: 1
             failureThreshold: 3
           terminationMessagePath: /dev/termination-log
+          volumeMounts:
+            - name: microcks-crt
+              mountPath: /etc/ssl/certs/microcks.crt
+              subPath: microcks.crt
+              readOnly: true
+            - name: cacerts
+              mountPath: /etc/pki/ca-trust/extracted/java/cacerts
+              subPath: cacerts
+              readOnly: true
+        volumes:
+          - name: microcks-crt
+            configMap:
+              name: microcks-crt
+          - name: cacerts
+            configMap:
+              name: cacerts
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         terminationGracePeriodSeconds: 30
